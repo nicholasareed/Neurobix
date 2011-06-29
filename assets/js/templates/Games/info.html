@@ -1,0 +1,52 @@
+
+<!-- My Actual homepage -->
+<div id="gameInfo" class="view">
+	
+	<!-- Back Button -->
+	
+	<div class="backButton" clickAction="Users.home" animation="left">
+		<
+	</div>
+	
+	
+	<div class="homeSpace"></div>
+	
+	
+	<!-- Name -->
+	
+	<div class="name">
+		${name}
+	</div>
+	
+	
+	<!-- Description -->
+	
+	<div class="description">
+		${description}
+	</div>
+	
+	
+	<!-- Scores -->
+	
+	<div class="gameScores">
+	  <div class="gameScore"> <!-- Consecutive Days -->
+	  	<span>42</span> Last Score
+	  </div>
+	  
+	  <div class="gameScore">
+	  	<span>312</span> Best Score
+	  </div>
+	  
+	  <div class="gameScore">
+	  	<span>96th</span> Percentile
+	  </div>
+	</div>
+	  
+	  
+	<!-- Play Game (button) -->
+	
+	<div class="playGame" clickAction="Games.play" gameKey="${key}">
+		Play!
+	</div>
+	
+</div>

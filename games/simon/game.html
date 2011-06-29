@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+	<head>
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width" />
+		<title>Game</title>
+		
+		<link rel="stylesheet" href="game.css" type="text/css" media="screen" />
+		
+		
+		<script src="../../phonegap.js" type="text/javascript" charset="utf-8"></script>
+				
+		<script src="../../assets/js/libs/jquery-1.5.2.min.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script src="../../assets/js/lawnchair/adaptors/LawnchairAdaptorHelpers.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../assets/js/lawnchair/adaptors/DOMStorageAdaptor.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../assets/js/lawnchair/adaptors/WebkitSQLiteAdaptor.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../assets/js/lawnchair/Lawnchair.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script src="../../assets/js/libs/global.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script src="game.js" type="text/javascript" charset="utf-8"></script>
+		
+	</head>
+	<body>
+		
+		<!--
+		
+			Dual n-back
+			- display a grid (certain number) [done]
+			- create an array of total elements (9)
+			
+			How many back are we going? Assume n=1 back for now. 
+			
+			Logic Flow:
+			- display grid [done, use eq(0) to reach certain cells]
+			- choose square to display [done]
+			- add that spot (value of array point) to history array [done]
+			- display color point (maybe change to shape later) [done]
+				- start color-removing setTimeout (after .5 seconds) [done]
+				- start Waiting for Input counter
+					- say "here is what we are expecting to be pressed"
+					- what "back" are we? 
+						- Does that match up with what we are going to display (random)? 
+						- Change the "expected" for Visual to yes/no
+			- on "Same Spot" button pressed ("Visual"?)
+				- is this a Yes or No press?
+					- on Yes, add 1 point and turn into "unclickable" until next display
+						- change to Green and text to "Good Job"
+					- on No, subtract 1 point and turn "unclickable" until next display
+						- change to Red and text to "Whoops"
+			- how many times have we gone through?
+				- end at 20 times (45 seconds?)
+		
+		-->
+		
+		<div class="instructions">
+			N-back test (Raise your IQ like a motherfucker)
+		</div>
+		
+		<div class="scores">
+			Total points: <span class="points">0</span>
+			<br />
+			Consecutive correct: <span class="consecutive">0</span>
+		</div>
+		
+		<div class="game">
+			
+			<table class="game" cellspacing="0" cellpadding="0">
+				<tr>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+				</tr>
+			</table>
+			
+			<div class="button start">
+				Start
+			</div>
+			
+			<div class="button visual hide">
+				Visual
+			</div>
+			
+			<div class="afterPressResult hide">
+				
+			</div>
+			
+		</div>
+		
+	</body>
+</html>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns		= "http://www.w3.org/ns/widgets"
+	xmlns:gap	= "http://phonegap.com/ns/1.0"
+	id		= "com.neurobix.app"
+	version 	= "1.0.0">
+
+	<name>Neurobix</name>
+
+	<description>
+		Train your Brain!
+	</description>
+
+	<author href="http://nivicollc.com"
+		email="nicholas.a.reed@gmail.com">
+		Nicholas Reed
+	</author>
+
+	<gap:platforms>
+		<gap:platform name="android" minVersion="2.1" />
+	</gap:platforms>
+
+	<icon src="icon.png" gap:role="default" />
+	<gap:splash src="splash.png" gap:role="default" />
+
+	<feature name="http://api.phonegap.com/1.0/geolocation"/>
+	<feature name="http://api.phonegap.com/1.0/network"/>
+	<feature name="http://api.phonegap.com/1.0/notification"/>
+
+	<!-- sample preference specification -->
+	<!-- <preference name="autorotate" value="false" readonly="true"/> -->
+</widget>

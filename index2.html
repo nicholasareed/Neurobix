@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+	<head>
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width" />
+		<title>Neurobix App</title>
+		<link rel="stylesheet" href="assets/css/master.css" type="text/css" media="screen" />
+		
+		<script src="phonegap.js" type="text/javascript" charset="utf-8"></script>
+		
+		<!--
+		<script src="assets/js/xui.js" type="text/javascript" charset="utf-8"></script>
+		-->
+		
+		<script src="assets/js/jquery-1.5.2.min.js" type="text/javascript" charset="utf-8"></script>
+		<!--
+		<script src="assets/js/jquery.mobile-1.0a4.1.js" type="text/javascript" charset="utf-8"></script>
+		-->
+		
+		<script src="assets/js/lawnchair/adaptors/LawnchairAdaptorHelpers.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script src="assets/js/lawnchair/adaptors/DOMStorageAdaptor.js" type="text/javascript" charset="utf-8"></script>
+		<script src="assets/js/lawnchair/adaptors/WebkitSQLiteAdaptor.js" type="text/javascript" charset="utf-8"></script>
+		<script src="assets/js/lawnchair/adaptors/CookieAdaptor.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script src="assets/js/lawnchair/Lawnchair.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script src="assets/js/highcharts.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script src="assets/js/modernizr-1.7.js" type="text/javascript" charset="utf-8"></script>
+		
+		<!--
+		<script src="assets/js/global.js" type="text/javascript" charset="utf-8"></script>
+		<script src="assets/js/dsl.js" type="text/javascript" charset="utf-8"></script>
+		<script src="assets/js/app.js" type="text/javascript" charset="utf-8"></script>
+		-->
+		
+		<script src="assets/js/model.js" type="text/javascript" charset="utf-8"></script>
+		<script src="assets/js/controller.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script src="assets/js/models/User.js" type="text/javascript" charset="utf-8"></script>
+		
+	</head>
+	<body>
+		
+		<!-- Title Bar (removed if logged in) -->
+ 		<div id="title_bar" class="login_bar">
+ 			
+ 			<div class="app_button" go="home">
+ 				Neurobix
+ 			</div>
+ 			
+ 			<div class="app_button" go="login">
+ 				Login
+ 			</div>
+ 			
+ 			<div class="app_button" go="signup">
+ 				Sign Up
+ 			</div>
+ 		</div>
+ 		
+ 		
+ 			
+		<!-- Sign Up (logged in?) -->
+		<div id="signup" class="view">
+  	  
+  	  <p>
+  	  	Sign Up:
+  	  	<br />
+  	  	This is where you get signed up
+  	  </p>
+  	  
+		</div>
+ 			
+ 			
+		<!-- Login -->
+		<div id="login" class="view">
+  	  
+  	  <p>
+  	  	Login:
+  	  	<br />
+  	  	Click to pretend you logged in
+  	  </p>
+  	  
+ 			<div class="login_button">
+ 				Login
+ 			</div>
+  	  
+  	  
+		</div>
+		
+		
+		<!-- Welcome (logged in?) -->
+		<div id="welcome" class="view">
+  	  
+  	  <p>
+  	  	"People who do Neurobix daily for 2 weeks improve an average of 20%"
+  	  </p>
+  	  
+  	  <div class="app_button" go="testgame">Start!</div>
+  	  
+		</div>
+		
+		
+		<!-- Test Game -->
+		<div id="testgame" class="view"><iframe id="testGameFrame" src="" width="320px"></iframe></div>
+		
+		
+		<!-- Home (logged in) -->
+		<div id="home" class="view">
+			
+ 			<div id="title_bar">Neurobix</div>
+  	  
+  	  <div class="consDays"> <!-- Consecutive Days -->
+  	  	
+  	  </div>
+  	  
+  	  
+  	  <div class="todaysGames"> <!-- Today's Games -->
+  	  	
+  	  </div>
+  	  
+  	  
+  	  <div id="trendGraph"> <!-- Previous Results Graph -->
+  	  	<img src="assets/img/graph.png"/>
+  	  </div>
+  	  
+  	  
+ 			<div class="button logout_button">
+ 				Logout
+ 			</div>
+ 			
+		</div>
+		
+		
+		<!-- Game -->
+		<div id="game" class="view"><iframe id="gameFrame" src="" width="320px"></iframe></div>
+		
+
+	</body>
+</html>
