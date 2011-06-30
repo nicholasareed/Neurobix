@@ -17,8 +17,9 @@ var duplicateVisualPositions = 8;
 var currentTurn = 0;
 
 // Scoring
-var points = 0;
-var consecutive = 0;
+var scorePoints = 0;
+var scoreConsecutive = 0;
+var scoreMissed = 0;
 
 $(document).ready(function(){
 	
@@ -88,7 +89,7 @@ $(document).ready(function(){
 			// Get amount in front of it
 			var sub = visualNBack; // +1?
 			if(!positions[pos-sub]){
-					console.log('undefined position');
+				//console.log('undefined position');
 				i--;
 			} else {
 				var n = positions[pos-sub];
@@ -137,8 +138,9 @@ $(document).ready(function(){
 			var match = visualMatch();
 			if(match === 1){
 				// Matched, missed it
-				points -= 100;
-				consecutive = 0;
+				scorePoints -= 100;
+				scoreConsecutive = 0;
+				scoreMissed++;
 				updateScores();
 			}
 			
@@ -222,8 +224,8 @@ $(document).ready(function(){
 				$('div.afterPressResult').removeClass('correct').text('');
 			},1000);
 			
-			points += 100;
-			consecutive++;
+			scorePoints += 100;
+			scoreConsecutive++;
 			updateScores();
 			
 		} else {
@@ -232,8 +234,8 @@ $(document).ready(function(){
 			setTimeout(function(){
 				$('div.afterPressResult').removeClass('wrong').text('');
 			},1000);
-			points -= 100;
-			consecutive = 0;
+			scorePoints -= 100;
+			scoreConsecutive = 0;
 			updateScores();
 		}
 		
@@ -270,8 +272,9 @@ $(document).ready(function(){
 	
 	function updateScores(){
 		// Update the displayed scores
-		$('div.scores span.points').text(points);
-		$('div.scores span.consecutive').text(consecutive);
+		$('div.scores span.points').text(scorePoints);
+		$('div.scores span.consecutive').text(scoreConsecutive);
+		$('div.scores span.missed').text(scoreMissed);
 	}
 	
 	
