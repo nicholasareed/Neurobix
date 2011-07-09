@@ -27,6 +27,9 @@ div.button  {
 	text-align:center;
 	cursor:pointer;
 	
+	float:left;
+	margin-left:10px;
+	
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
 	border-radius:5px;
@@ -36,8 +39,15 @@ div.visual {
 	margin-top:10px;
 	background:blue;
 }
-
 div.visual.pressed {
+	background:orange;
+}
+
+div.color {
+	margin-top:10px;
+	background:blue;
+}
+div.color.pressed {
 	background:orange;
 }
 
@@ -87,8 +97,9 @@ table.game tr:first-child td {
 }
 
 table.game td.active {
-	background:blue;
+	/* used to be a simple background:blue; but now we want colors */
 }
+
 
 
 

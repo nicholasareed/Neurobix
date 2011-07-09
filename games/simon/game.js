@@ -1,17 +1,28 @@
 
 // This is the game
 
+// Game Variables
+var gameLength = 20;
+
 // Times (ms)
 var colorDisplayTime = 500; // How long the element/color in a square is displayed for
 var totalTurnTime = 3000; 	// Amount of time before the next turn is started
-var visualNBack = 1;				// Distance to travel back
+
+// N-back Distance and Percentages
+var visualNBack = 2;				// Distance to travel back
+var colorNBack = 2;
 var percentageMatching = 3; // Not an actual percentage
 
 // Visual Position info
 var totalSquares = 9;
 var visualPositions = [];
-var totalVisualPositions = 20;
 var duplicateVisualPositions = 8;
+
+// Color info
+var colorList = ['red','blue','green','yellow','orange','black','purple'];
+var totalColors = colorList.length;
+var colorPositions = [];
+var duplicateColorPositions = 8;
 
 // Turn vars
 var currentTurn = 0;
@@ -48,31 +59,82 @@ $(document).ready(function(){
 		// We are starting
 		$(this).remove();
 		$('div.button.visual').show();
+		$('div.button.color').show();
 		
 		// Set Default look
 		$('div.afterPressResult').removeClass('hide');
 		
 		// Build all the visual positions
 		visualPositions = buildVisualPositions();
+		colorPositions = buildColorPositions();
 		
 		// Start a new Turn
 		currentTurn = 0;
-		newTurn();
+		setTimeout(newTurn,1000);
+		//newTurn();
 		
 	});
+	
+	
+	function buildColorPositions(){
+		// Build the Color Positions for a game
+		
+		// visualPositions
+		// gameLength
+		// duplicateVisualPositions
+		
+		// Build 20 random
+		
+		var positions = [];
+		for(var i = 1; i <= gameLength; i++){
+			var pos = Math.floor(Math.random()*(totalColors)) + 1; // Cannot be 0
+			if(pos == positions[positions.length-1]){ // Prevent repeating values (fails for nback=2)
+				i--;
+			} else {
+				positions.push(pos);
+			}
+		}
+		
+		// Randomly choose 8 positions to change to follow the nback
+		for(i = 0; i < duplicateColorPositions; i++){
+			// Get random place in array
+			var pos = Math.floor(Math.random()*(positions.length)); // bug: might ignore the last element in array
+			
+			// Get amount in front of it
+			var sub = colorNBack; // +1?
+			if(!positions[pos-sub]){
+				//console.log('undefined position');
+				i--;
+			} else {
+				var n = positions[pos-sub];
+				positions[pos] = n;
+			}
+			
+		}
+		
+		// Turn positions into colors
+		var colors = [];
+		for(var i = 0; i < positions.length; i++){
+			colors.push(colorList[positions[i]-1]);
+		}
+		console.log(colors);
+		
+		return colors;
+		
+	}
 	
 	
 	function buildVisualPositions(){
 		// Build the Visual Positions for a game
 		
 		// visualPositions
-		// totalVisualPositions
+		// gameLength
 		// duplicateVisualPositions
 		
 		// Build 20 random
 		
 		var positions = [];
-		for(var i = 1; i <= totalVisualPositions; i++){
+		for(var i = 1; i <= gameLength; i++){
 			var pos = Math.floor(Math.random()*(totalSquares)) + 1; // Cannot be 0
 			if(pos == positions[positions.length-1]){ // Prevent repeating values (fails for nback=2)
 				i--;
@@ -104,7 +166,7 @@ $(document).ready(function(){
 		
 		
 		// Build out total-duplicate
-		var run = totalVisualPositions - duplicateVisualPositions;
+		var run = gameLength - duplicateVisualPositions;
 		var positions = [];
 		for(var i = 1; i <= run; i++){
 			var pos = Math.floor(Math.random()*(totalSquares)) + 1; // Cannot be 0
@@ -141,15 +203,24 @@ $(document).ready(function(){
 				scorePoints -= 100;
 				scoreConsecutive = 0;
 				scoreMissed++;
-				updateScores();
 			}
+			var match = colorMatch();
+			if(match === 1){
+				// Matched, missed it
+				scorePoints -= 100;
+				scoreConsecutive = 0;
+				scoreMissed++;
+			}
+			
+			// Update Scores
+			updateScores();
 			
 		}
 		
 		// Are we done with turns?
-		if(currentTurn == totalVisualPositions){
+		if(currentTurn == gameLength){
 			// Done, display finish score
-			alert('done');
+			console.log('done');
 			return;
 		}
 		
@@ -162,14 +233,17 @@ $(document).ready(function(){
 		var xpos = result.col;
 		var ypos = result.row;
 		
-		// Display the graphic (turn it blue by adding a class)
+		var bgColor = colorPositions[currentTurn];
+		
+		// Display the graphic (turn it the correct color)
 		//$('table.game tr:nth-child('+(ypos+1)+') td:nth-child('+(xpos+1)+')').text(pos + ' [' + xpos + ',' + ypos + ']');
 		//$('table.game tr:nth-child('+(ypos+1)+') td:nth-child('+(xpos+1)+')').text(pos);
-		$('table.game tr:nth-child('+(ypos+1)+') td:nth-child('+(xpos+1)+')').addClass('active');
+		//$('table.game tr:nth-child('+(ypos+1)+') td:nth-child('+(xpos+1)+')').addClass('active'); // Used to change class
+		$('table.game tr:nth-child('+(ypos+1)+') td:nth-child('+(xpos+1)+')').css('background',bgColor); // Change the background color of the square
 		
 		// Start the color-removing timeout (.5 seconds)
 		setTimeout(function(){
-			$('table.game td').removeClass('active');
+			$('table.game td').css('background','inherit');
 		},colorDisplayTime);
 		
 		// Do the next Turn after the time period expires
@@ -177,6 +251,7 @@ $(document).ready(function(){
 		
 		// Re-enable buttons (visual, etc.)
 		$('div.button.visual').removeClass('pressed');
+		$('div.button.color').removeClass('pressed');
 		
 		// Increment currentTurn
 		currentTurn++;
@@ -259,6 +334,92 @@ $(document).ready(function(){
 		
 		// Get nback value
 		var nback = visualPositions[ct-pastCount];
+		
+		// Does the value match?
+		if(current == nback){
+			return 1;
+		} else {
+			return 0;
+		}
+		
+	}
+	
+	
+	$('div.button.color').click(function(){
+		// Visual Button was pressed
+		// - if it exists, we are in the middle of a turn
+		
+		// Already pressed?
+		if($(this).hasClass('pressed')){
+			return;
+		}
+		$(this).addClass('pressed');
+		
+		/*
+		// Does the currently-displayed element (or most-recently displayed) match up with n-back element?
+		var ct = currentTurn - 1;
+		var current = visualPositions[ct];
+		var pastCount = visualNBack;
+		
+		// Are we even far enough back? (enough elements in hist array?)
+		if(ct < pastCount){
+			return; // Don't count negatively
+		}
+		
+		// Get nback value
+		var nback = visualPositions[ct-pastCount];
+		*/
+		
+		var match = colorMatch();
+		
+		if(match === -1){
+			$(this).removeClass('pressed');
+			return;
+		}
+		
+		// Does the value match?
+		if(match === 1){
+			// Correct!
+			$('div.afterPressResult').addClass('correct').text('Correct!');
+			setTimeout(function(){
+				$('div.afterPressResult').removeClass('correct').text('');
+			},1000);
+			
+			scorePoints += 100;
+			scoreConsecutive++;
+			updateScores();
+			
+		} else {
+			// Wrong
+			$('div.afterPressResult').addClass('wrong').text('Whoops, wrong');
+			setTimeout(function(){
+				$('div.afterPressResult').removeClass('wrong').text('');
+			},1000);
+			scorePoints -= 100;
+			scoreConsecutive = 0;
+			updateScores();
+		}
+		
+		
+	});
+	
+	
+	function colorMatch(){
+		// Does the current visual match?
+		// - -1,0,1
+		
+		// Does the currently-displayed element (or most-recently displayed) match up with n-back element?
+		var ct = currentTurn - 1;
+		var current = colorPositions[ct];
+		var pastCount = colorNBack;
+		
+		// Are we even far enough back? (enough elements in hist array?)
+		if(ct < pastCount){
+			return -1; 
+		}
+		
+		// Get nback value
+		var nback = colorPositions[ct-pastCount];
 		
 		// Does the value match?
 		if(current == nback){
